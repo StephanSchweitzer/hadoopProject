@@ -31,3 +31,15 @@ def givethegoodyear(numbers):
         final_date = numbers % 10000
 
     return final_date
+
+def cut_years(the_whole_date):
+    if not isinstance(the_whole_date, str):
+        print("Not string")
+        return
+
+    the_whole_date = the_whole_date[:4]
+    return the_whole_date
+
+def get_pollution_by_city_and_year(city = '', year = ''):
+    print(city)
+    print(year)
