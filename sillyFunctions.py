@@ -54,3 +54,6 @@ def get_pollution_by_city_and_year(the_dataframe, searched_state='', searched_ye
         full_data_frame = full_data_frame.groupby(["state"])["so2", "no2", "rspm"].aggregate('mean')
 
     return full_data_frame
+
+def get_max_pm2_5(dataframe):
+    return dataframe.query('pm2_5 == pm2_5.max()')
