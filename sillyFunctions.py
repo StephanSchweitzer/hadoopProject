@@ -40,6 +40,17 @@ def cut_years(the_whole_date):
     the_whole_date = the_whole_date[:4]
     return the_whole_date
 
-def get_pollution_by_city_and_year(city = '', year = ''):
-    print(city)
-    print(year)
+
+def get_pollution_by_city_and_year(the_dataframe, searched_state='', searched_year='', short=False):
+    full_data_frame = the_dataframe
+    searched_year = str(searched_year)
+    if searched_state != '':
+        full_data_frame = full_data_frame[full_data_frame.state == searched_state]
+
+    if searched_year != '':
+        full_data_frame = full_data_frame[full_data_frame.date == searched_year]
+
+    if short:
+        full_data_frame = full_data_frame.groupby(["state"])["so2", "no2", "rspm"].aggregate('mean')
+
+    return full_data_frame
