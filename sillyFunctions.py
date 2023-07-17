@@ -55,5 +55,30 @@ def get_pollution_by_city_and_year(the_dataframe, searched_state='', searched_ye
 
     return full_data_frame
 
+def get_pollution_by_city_and_year(the_dataframe, searched_state='', searched_city='', searched_year='', short=False):
+
+        full_data_frame = the_dataframe
+        searched_year = str(searched_year)
+        shortened_groups = ['date']
+
+        if searched_state != '':
+            full_data_frame = full_data_frame[full_data_frame.state == searched_state]
+            shortened_groups.append("state")
+
+        if searched_city != '':
+            full_data_frame = full_data_frame[full_data_frame.location == searched_city]
+
+        if searched_year != '':
+            full_data_frame = full_data_frame[full_data_frame.date == searched_year]
+
+        if short:
+            full_data_frame = full_data_frame.groupby(shortened_groups)["so2", "no2", "rspm"].aggregate('mean')
+
+        print(shortened_groups)
+        return full_data_frame
+
 def get_max_pm2_5(dataframe):
     return dataframe.query('pm2_5 == pm2_5.max()')
+
+def get_city_population(thedataframe, thecity):
+    return thedataframe.loc[thedataframe['city'] == 'Hyderabad']
